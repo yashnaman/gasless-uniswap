@@ -1440,7 +1440,7 @@ const showFaucetLink = function () {
         tempString = 'https://oneclickdapp.com/cecilia-crash/'
     }
     if (netowrkName == 'matic') {
-        tempString = 'https://oneclickdapp.com/avalon-recycle'
+        tempString = 'https://oneclickdapp.com/alias-type/'
     }
     var a = document.createElement('a')
     a.href = tempString
@@ -1450,7 +1450,7 @@ const showFaucetLink = function () {
 
     var x = document.createElement('LABEL')
     var t = document.createTextNode(
-        '  :mint yourself 10000000000000000000 to be equal to 10 (Because of decimals)'
+        '  :mint yourself 10000000000000000000 to be equal to 10 (Because of decimals): This action is not gasless'
     )
     x.appendChild(t)
     document.body.prepend(x)
@@ -1673,7 +1673,7 @@ const sendPermitTransaction = async (
     }
 }
 const getPermit = async function (token, _value) {
-    let value = getAmountWithDecimals(_value)
+    let value = web3.utils.toWei(_value)
     erc20Contract = new web3.eth.Contract(
         config.contract.erc20ABI,
         config[netowrkName][token]
@@ -1730,12 +1730,12 @@ const getNow = async function () {
     var now = latestBlock.timestamp
     return parseInt(now)
 }
-function getAmountWithDecimals(_tokenAmount) {
-    var decimals = web3.utils.toBN(18)
-    var tokenAmount = web3.utils.toBN(_tokenAmount)
-    var tokenAmountHex = tokenAmount.mul(web3.utils.toBN(10).pow(decimals))
-    return web3.utils.toHex(tokenAmountHex)
-}
+// function getAmountWithDecimals(_tokenAmount) {
+//     var decimals = web3.utils.toBN(18)
+//     var tokenAmount = web3.utils.toBN(_tokenAmount)
+//     var tokenAmountHex = tokenAmount.mul(web3.utils.toBN(10).pow(decimals))
+//     return web3.utils.toHex(tokenAmountHex)
+// }
 
 const getAmountOut = async function (
     inputAmount,
@@ -1796,12 +1796,14 @@ const getBalanceERC20 = async function (ERC20address, wadAddress) {
     )
     let balance = await tempERC20Contract.methods.balanceOf(wadAddress).call()
     // console.log(await ERC20Contract.methods.decimals().call());
+    console.log(balance)
 
     let balanceWithDecimals = web3.utils.fromWei(balance)
     return balanceWithDecimals
 }
 const getMax = async function () {
     let wadAddress = ethereum.selectedAddress
+    console.log(wadAddress)
     let inputToken = document.getElementById('inputToken')
     let inputTokenName = inputToken.options[inputToken.selectedIndex].value
     let inputTokenaddress = config[netowrkName][inputTokenName]
@@ -1809,7 +1811,6 @@ const getMax = async function () {
     let balance = await getBalanceERC20(inputTokenaddress, wadAddress)
     document.getElementById('input').value = balance
 }
-
 const swap = async function () {
     let inputToken = document.getElementById('inputToken')
     let inputTokenName = inputToken.options[inputToken.selectedIndex].value
