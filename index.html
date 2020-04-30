@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>This is the title of the webpage!</title>
+
+    <script src="./bundle.js"></script>
+    <!-- <script type="text/javascript">
+      moduleTry.connectWallet();
+    </script> -->
+  </head>
+  <body>
+    <button
+      type="button"
+      name="connect wallet"
+      onclick="moduleTry.connectWallet()"
+    >
+      connect wallet
+    </button>
+    <form>
+      <label for="input">input</label><br />
+      <input type="number" id="input" name="input" />&nbsp;&nbsp;
+      <select id="inputToken" name="inputToken">
+        <option selected>select input token</option>
+        <option value="dai">DAI</option>
+        <option value="chai">CHAI</option>
+      </select>
+      <br />
+      <button type="button" id="unlockDai" onclick="moduleTry.unlockDai()">
+        unlockDaiorChai
+      </button>
+
+      <br />
+
+      <label for="output">output</label><br />
+      <input type="number" id="output" name="output" />&nbsp;&nbsp;
+      <select
+        id="outputToken"
+        name="outputToken"
+        onchange="moduleTry.getExchangeRate()"
+      >
+        <option selected>select input token</option>
+        <option value="WETH">WETH</option>
+        <option value="TestToken">TestToken</option>
+        <option value="ETH">ETH</option>
+      </select>
+      <br />
+      <button type="button" name="swap" onclick="moduleTry.swap()">swap</button>
+    </form>
+    &nbsp; &nbsp;
+  </body>
+</html>
