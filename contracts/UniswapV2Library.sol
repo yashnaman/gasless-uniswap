@@ -51,7 +51,7 @@ contract UniswapV2Library is IUniswapV2Library {
 
     // fetches and sorts the reserves for a pair
     function getReserves(address tokenA, address tokenB)
-        internal
+        public
         view
         returns (uint256 reserveA, uint256 reserveB)
     {

@@ -139,8 +139,16 @@ module.exports = function(deployer, network, accounts) {
       "routerAddress": routerContract.address,
       "EIP712forwarderAddress":EIP712ForwarderContract.address
     }
-    console.log(addresses);
+    let liquidityAmount1 = getAmountWithDecimals(100);
+    let liquidityAmount2 = getAmountWithDecimals(200);
+    await mUSDTContract.approve(routerContract.address, liquidityAmount1);
+    await MANAContract.approve(routerContract.address, liquidityAmount2);
+    let reserves = await routerContract.getReserves(mUSDTContract.address,MANAContract.address);
+    console.log(reserves);
+    let amountAmin = await routerContract.quote(liquidityAmount2,reserves[0],reserves[1]);
+    let amountBmin = await routerContract.quote(liquidityAmount1,reserves[1],reserves[0]);
+    console.log(amountAmin);
     
-    
+    routerContract.addLiquidity(mUSDTContract.address,MANAContract.address,liquidityAmount1,liquidityAmount2,amountAmin,amountBmin,setter,expiry);
   });
 };
