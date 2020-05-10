@@ -7,7 +7,7 @@ Demo video: https://www.youtube.com/watch?v=wu5mGoWAMuE
 # Run the front end locally
 1. go to src directory
 2. npm install
-3. npm tun dev
+3. npm run dev
 
 # Deploy the contracts
 1. npm install
